@@ -1,14 +1,14 @@
 from datetime import time, timezone
 import smbus
-import GPIO
+import RPi.GPIO as GPIO
 import time
 
-sleepVar = 1
+sleepVar = 0
 
 
-class binary(self, pins, bus):
+class binary:
 
-    def __init__(self):
+    def __init__(self,pins, bus):
         self.pins = pins
         self.bus = bus
 
@@ -26,12 +26,16 @@ class binary(self, pins, bus):
                 pinOn(pin, False, self.bus)
                 time.sleep(sleepVar * .1)
         else:
-            binNum = str(bin(number))
-            for i, char in enumerate(binNum[-6:]):
-                pinOn(self.bus, self.pins[i], int(char))
+
+            num_bits = len(self.pins)
+            bits = [(number >> bit) & 1 for bit in range(num_bits - 1, -1, -1)]
+
+            for i, bit in enumerate(bits):
+                #print(bool(bit))
+                pinOn(self.pins[i], bool(bit), self.bus)
 
 
-class radial(self, pins):
+class radial:
 
     def __init__(self, pins):
         self.pins = pins
