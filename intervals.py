@@ -8,7 +8,7 @@ sleepVar = 0
 
 class binary:
 
-    def __init__(self,pins, bus):
+    def __init__(self, pins, bus):
         self.pins = pins
         self.bus = bus
 
@@ -31,7 +31,7 @@ class binary:
             bits = [(number >> bit) & 1 for bit in range(num_bits - 1, -1, -1)]
 
             for i, bit in enumerate(bits):
-                #print(bool(bit))
+                # print(bool(bit))
                 pinOn(self.pins[i], bool(bit), self.bus)
 
 
@@ -54,7 +54,7 @@ class radial:
             pinOn(pin, True)
             time.sleep(sleepVar * .3)
         for pin in self.pins[:hour]:
-            pinOn(pin, True)
+            pinOn(pin, False)
             time.sleep(sleepVar * .3)
         pinOn(self.pins[hour], True)
 
